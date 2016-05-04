@@ -23,7 +23,7 @@ http://localhost:8888/cgi-bin/adder?xxxx&yyyy
 
 ![screen](https://github.com/huangmingchuan/TINY-Web/raw/master/screen.png)
 
-#### 内容分析
+### 内容分析
 TINY-Web 只实现了 GET 请求，并且一次只能连接一个客户端。在获得 GET 请求后，会忽略掉所有请求头。然后判断 uri 是不是静态文件，返回对应的静态内容或动态内容。
 
 如果要返回动态内容，则 Fork 一个子进程调用 CGI 程序，并且父进程阻塞直到子进程终止。
