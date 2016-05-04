@@ -267,3 +267,29 @@ pid_t Fork(void)
         unix_error("Fork error");
     return pid;
 }
+
+int Dup2(int fd1, int fd2)
+{
+    int rc;
+
+    if ((rc = dup2(fd1, fd2)) < 0)
+        unix_error("Dup2 error");
+
+    return rc;
+}
+
+void Execve(const char *filename, char *const argv[], char *const envp[])
+{
+    if (execve(filename, argv, envp) < 0)
+        unix_error("Execve error");
+}
+
+pid_t Wait(int *status)
+{
+    pid_t pid;
+
+    if ((pid = wait(status)) < 0)
+        unix_error("Wait error");
+
+    return pid;
+}

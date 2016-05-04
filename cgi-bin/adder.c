@@ -12,7 +12,7 @@ int main()
         strcpy(arg1, buf);
         strcpy(arg2, p+1);
         n1 = atoi(arg1);
-        n2 = ato2(arg2);
+        n2 = atoi(arg2);
     }
 
     sprintf(content, "Welcome to add.com: ");

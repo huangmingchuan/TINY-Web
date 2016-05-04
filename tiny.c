@@ -13,7 +13,7 @@ int main(int argc, char **argv)
     int listenfd, connfd, port, clientlen;
     struct sockaddr_in clientaddr;
 
-    int (argc != 2) {
+    if (argc != 2) {
         fprintf(stderr, "usage: %s <port>\n", argv[0]);
         exit(1);
     }
@@ -138,7 +138,7 @@ void serve_static(int fd, char *filename, int filesize)
     Rio_writen(fd, buf, strlen(buf));
 
     srcfd = Open(filename, O_RDONLY, 0);
-    srcp = Mmap(o, filesize, PORT_READ, MAP_PRIVATE, srcfd, 0);
+    srcp = Mmap(0, filesize, PROT_READ, MAP_PRIVATE, srcfd, 0);
     Close(srcfd);
     Rio_writen(fd, srcp, filesize);
     Munmap(srcp, filesize);
@@ -167,7 +167,7 @@ void serve_dynamic(int fd, char *filename, char *cgiargs)
     Rio_writen(fd, buf, strlen(buf));
 
     if (Fork() == 0) {
-        setenv("QUERY_STRING", cigargs, 1);
+        setenv("QUERY_STRING", cgiargs, 1);
         Dup2(fd, STDOUT_FILENO);
         Execve(filename, emptylist, environ);
     }

@@ -12,6 +12,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/mman.h>
+#include <wait.h>
 
 #define RIO_BUFSIZE 8192
 #define MAXLINE 8192
@@ -30,6 +31,8 @@ typedef struct {
 
 struct hostent *Gethostbyname(const char *name);
 struct hostent *Gethostbyaddr(const char *addr, int len, int type);
+
+extern char **environ;
 
 void dns_error(char *msg);
 
@@ -72,3 +75,9 @@ void *Mmap(void *addr, size_t len, int port, int flags, int fd, off_t offet);
 void Munmap(void *start, size_t length);
 
 pid_t Fork(void);
+
+int Dup2(int fd1, int fd2);
+
+void Execve(const char *filename, char * const argv[], char * const envp[]);
+
+pid_t Wait(int *status);
